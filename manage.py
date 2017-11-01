@@ -3,7 +3,7 @@
 from flask_script import Manager, prompt_bool
 
 import logging
-
+import pip
 from app import db
 from app import app
 
@@ -57,6 +57,19 @@ def drop_db():
         app.logger.warning('Done')
     else:
         app.logger.info('Skipping')
+
+
+@manager.command
+def update_auscop():
+    """
+    update the auscop api script from bitbucket
+    :return:
+    """
+    url = "https://bitbucket.org/chchrsc/auscophub"
+    cmd = "hg+"+url
+    print(cmd)
+
+    pip.main(['install', cmd])
 
 
 if __name__ == "__main__":

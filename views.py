@@ -23,6 +23,17 @@ def render_table():
 
     return render_template('table.html', table=return_list)
 
+@app.route('/get_test_nci')
+def get_test_nci():
+    from api.nci.get_results_from_sara import get_by_date
+
+    result = get_by_date('2017-05-01', '2017-05-02', 2)
+
+    return jsonify(result)
+
+
+
+
 # @app.route('/blk_devices')
 # def get_blk_devices():
 #     response = linux_hardware.get_blk_devies()
