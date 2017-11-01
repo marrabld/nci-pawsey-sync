@@ -7,6 +7,7 @@ from api import nci, pawsey
 
 @app.route('/')
 def hello_world():
+    app.logger.debug('Rendering home page')
     return render_template('index.html')
 
 
