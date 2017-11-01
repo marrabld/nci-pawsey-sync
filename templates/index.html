@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<center><strong>Hello World</strong></center>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block body %}
+<div class="jumbotron">
+    <div class="container">
+    <center><strong>Hello World</strong></center>
+        </div>
+</div>
+{% endblock %}

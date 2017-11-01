@@ -32,7 +32,7 @@ def load_test_data():
     :return:
     """
     if prompt_bool("Are you sure you want to continue, proceeding will drop all previous data"):
-        app.logger.warning('Dropping table before data')
+        app.logger.warning('Dropping table before generating dummy data')
         db.drop_all()
         db.create_all()
 

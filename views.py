@@ -1,5 +1,7 @@
 from flask import render_template, jsonify, request
-from app import app
+from app import app, db
+
+from models import transfer
 #from hardware_utils import linux_hardware
 #from weather_utils import meteye
 from api import nci, pawsey
@@ -9,6 +11,20 @@ from api import nci, pawsey
 def hello_world():
     app.logger.debug('Rendering home page')
     return render_template('index.html')
+
+@app.route('/table')
+def render_table():
+
+    return_list = []
+    u = transfer.User.query.all()
+
+    for item in u:
+        return_list.append([item.nickname, item.email])
+
+    table = jsonify(return_list)
+
+    return(render_template('table.html'))
+
 
 
 # @app.route('/blk_devices')
