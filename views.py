@@ -27,7 +27,7 @@ def render_table():
 def get_test_nci():
     from api.nci.get_results_from_sara import get_by_date
 
-    result = get_by_date('2017-05-01', '2017-05-02', 2)
+    result = get_by_date('2017-10-29', '2017-11-01', 2)
 
     return jsonify(result)
 
