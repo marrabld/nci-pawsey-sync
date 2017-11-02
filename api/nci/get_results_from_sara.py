@@ -8,3 +8,12 @@ def get_by_date(start_date, completion_date, sentinel_number):
     results = saraclient.searchSara(url_opener, sentinel, param_list)
 
     return results
+
+
+def get_published_after(published_date, sentinel_number):
+    url_opener = saraclient.makeUrlOpener()
+    sentinel = sentinel_number
+    param_list = ['publishedAfter={}'.format(published_date)]
+    results = saraclient.searchSara(url_opener, sentinel, param_list)
+
+    return results

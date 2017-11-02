@@ -1,5 +1,6 @@
 from flask import render_template, jsonify, request
 from app import app, db
+import json
 
 from models import transfer
 # from hardware_utils import linux_hardware
@@ -30,6 +31,32 @@ def get_test_nci():
     result = get_by_date('2017-10-29', '2017-11-01', 2)
 
     return jsonify(result)
+
+@app.route('/get_published_after_test')
+def get_published_after_test():
+    from api.nci.get_results_from_sara import get_published_after
+
+    result = get_published_after('2017-10-31', 2)
+
+    breakpoint = 'break'
+
+    #result = json.load(result)
+
+    return jsonify(result)
+
+
+@app.route('/sentinel/<sentinel_num>/get_published_after/<date>')
+def get_published_after(sentinel_num, date):
+
+    from api.nci.get_results_from_sara import get_published_after
+
+    result = get_published_after(date, sentinel_num)
+
+    return jsonify(result)
+
+@app.route('/map')
+def return_map():
+    return render_template("map.html")
 
 
 
