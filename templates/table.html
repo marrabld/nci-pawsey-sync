@@ -8,18 +8,18 @@
             <thead class="thead-inverse">
             <tr>
                 <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
+                <th>Download Link</th>
+                <th></th>
+                <th>Quicklook</th>
             </tr>
             </thead>
             <tbody>
                 {% for row in table %}
                 <tr>
                     <th scope="row">{{ loop.index }}</th>
-                    <td>{{ row[0] }}</td>
+                    <td><a href="{{ row }}">{{ row }}</a></td>
                     <td>Otto</td>
-                    <td>{{ row[1]}}</td>
+                    <td><img src="{{ quicklook[loop.index]}}" > </td>
                 </tr>
 
                 {% endfor %}
