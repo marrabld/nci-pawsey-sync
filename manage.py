@@ -8,6 +8,7 @@ from app import db
 from app import app
 
 from models import transfer
+import datetime
 
 app.logger.setLevel(logging.DEBUG)
 
@@ -37,10 +38,22 @@ def load_test_data():
         db.create_all()
 
         app.logger.info("Populating database with dummy data")
-        for i_iter in range(0, 20):
+        for i_iter in range(0, 15):
+            date = datetime.datetime(year=2017, month=11, day=i_iter+1, hour=9, minute=30, second=0, tzinfo=None)
+            _id = i_iter
+            pi = 'Dan Marrable <d.marrable@curtin.edu.au>'
+            last_published_date = datetime.datetime.now()
+            if i_iter == 13 or i_iter == 5:
+                transfer_success = False
+            else:
+                transfer_success = True
 
-            u = transfer.User(nickname='john_{}'.format(i_iter), email='john_{}@email.com'.format(i_iter))
-            db.session.add(u)
+            s = transfer.Schedule(id=_id,
+                                  date_time=date,
+                                  pi=pi,
+                                  last_published_date=last_published_date,
+                                  transfer_success=transfer_success)
+            db.session.add(s)
         db.session.commit()
         app.logger.info("Done")
 
@@ -66,7 +79,7 @@ def update_auscop():
     :return:
     """
     url = "https://bitbucket.org/chchrsc/auscophub"
-    cmd = "hg+"+url
+    cmd = "hg+" + url
     print(cmd)
 
     pip.main(['install', cmd])

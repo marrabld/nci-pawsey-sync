@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="jumbotron">
+    <div class="container">
+
+        <table id="schedule_table" class="table">
+            <thead class="thead-inverse">
+            <tr>
+                <th>#ID</th>
+                <th>Date Run</th>
+                <th>Principle Investigator</th>
+                <th>Last Published Date</th>
+                <th>Transfer Success</th>
+
+            </tr>
+            </thead>
+            <tbody>
+                {% for row in table %}
+                <tr>
+                    <th scope="row">{{ row[0] }}</th>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td id="success_{{ row[0] }}">{{ row[4] }}</td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+
+    window.onload =function check_true(){
+    console.log("I was called");
+
+        var table_length = document.getElementById("schedule_table").rows.length;
+
+        for (i=0; i <= table_length; i++){
+
+            row = $("#success_"+i).text()
+            console.log(row)
+            if (row == "True"){
+                //console.log("we hit a true")
+                $("#success_"+i).addClass("table-success")
+            } else {
+                $("#success_"+i).parent().addClass("table-danger")
+                //console.log("nope")
+            }
+
+        }
+    }
+
+
+</script>
+
+{% endblock %}
+

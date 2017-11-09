@@ -1,11 +1,6 @@
 from flask import render_template, jsonify, request
 from app import app, db
-import json
-
 from models import transfer
-# from hardware_utils import linux_hardware
-# from weather_utils import meteye
-from api import nci, pawsey
 
 
 @app.route('/')
@@ -40,12 +35,16 @@ def render_table():
     :return:
     """
     return_list = []
-    u = transfer.User.query.all()
+    s = transfer.Schedule.query.all()
 
-    for item in u:
-        return_list.append([item.nickname, item.email])
+    for item in s:
+        return_list.append([item.id,
+                            item.date_time,
+                            item.pi,
+                            item.last_published_date,
+                            item.transfer_success])
 
-    return render_template('table.html', table=return_list)
+    return render_template('schedule_table.html', table=return_list)
 
 
 @app.route('/get_test_nci')
@@ -62,10 +61,6 @@ def get_published_after_test():
     from api.nci.get_results_from_sara import get_published_after
 
     result = get_published_after('2017-10-31', 2)
-
-    breakpoint = 'break'
-
-    # result = json.load(result)
 
     return jsonify(result)
 
