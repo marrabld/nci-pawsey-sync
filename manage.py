@@ -38,12 +38,12 @@ def load_test_data():
         db.create_all()
 
         app.logger.info("Populating database with dummy data")
-        for i_iter in range(0, 15):
+        for i_iter in range(0, 8):
             date = datetime.datetime(year=2017, month=11, day=i_iter+1, hour=9, minute=30, second=0, tzinfo=None)
             _id = i_iter
             pi = 'Dan Marrable <d.marrable@curtin.edu.au>'
             last_published_date = datetime.datetime.now()
-            if i_iter == 13 or i_iter == 5:
+            if i_iter == 14 or i_iter == 5:
                 transfer_success = False
             else:
                 transfer_success = True

@@ -1,4 +1,4 @@
-from flask import render_template, jsonify, request
+from flask import render_template, jsonify, redirect, url_for
 from app import app, db
 from models import transfer
 
@@ -9,7 +9,7 @@ def hello_world():
     return render_template('index.html')
 
 
-@app.route('/sentinel/<sentinel_num>/table/<date>')
+@app.route('/sentinel/<sentinel_num>/table/get_published_after/<date>')
 def render_nci_table(sentinel_num, date):
     """
 
@@ -98,4 +98,37 @@ def get_nci_url_published_after(sentinel_num, date):
     result = get_nci_url_published_after(sentinel_num, date)
 
     return jsonify(result)
+
+
+@app.route('/get_last')
+def get_last():
+    """
+    For testing
+    :return:
+    """
+    from api.db.scheduler import get_last_sync
+
+    result = get_last_sync()
+
+    # rint(result)
+    return result
+
+
+@app.route('/sentinel/<sentinel_num>/sync_nci_to_pawsey', methods=['GET', 'POST'])
+def sync_nci_to_pawsey(sentinel_num):
+    """
+
+    :param sentinel_num:
+    :return:
+    """
+
+    from api.db.scheduler import sync_nci_to_pawsey
+    result = sync_nci_to_pawsey(sentinel_num)
+
+    print(url_for('render_table'))
+
+    return redirect(url_for('render_table'))
+
+
+
 

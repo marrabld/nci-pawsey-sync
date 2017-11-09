@@ -63,14 +63,6 @@ $(document).ready(function () {
     };
 
     // Fetch the data from SARA using our own endpoint
-    //$("#load_data").click(function(){
-    //$.get("/get_published_after_test", function(data, status){
-    //console.log(status);
-    //    for (var i = 0; i < data.length; i++) {
-    //        load_geojson(data[i]);
-    //    }
-    //    });
-    //});
 
     // Set the bounds on our search
     $( "form" ).submit(function( event ) {
@@ -87,13 +79,12 @@ $(document).ready(function () {
 
         console.log("/sentinel/2/get_published_after/"+start)
 
-        $.get("/sentinel/2/get_published_after/"+start, function(data, status){
+        $.get("/sentinel/"+sentinel+"/get_published_after/"+start, function(data, status){
         console.log(status);
             for (var i = 0; i < data.length; i++) {
                 load_geojson(data[i]);
             }
             });
-
 
         console.log(start)
         console.log(finish)
