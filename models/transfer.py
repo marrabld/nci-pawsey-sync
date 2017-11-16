@@ -1,18 +1,6 @@
 from app import db
 
 
-# class User(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     nickname = db.Column(db.String(64), index=True, unique=True)
-#     email = db.Column(db.String(120), index=True, unique=True)
-#
-#     def __repr__(self):
-#         return '<User %r>' % (self.nickname)
-#
-#     def as_dict(self):
-#         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
-
-
 class Schedule(db.Model):
     """
     A Table for keeping track of the scheduled data transfer

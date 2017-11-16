@@ -7,7 +7,10 @@ from logging import Formatter
 from logging.handlers import RotatingFileHandler
 
 # import configs
-import ConfigParser
+try:
+    import ConfigParser
+except:
+    import configparser
 
 DEBUG = True
 
@@ -24,9 +27,13 @@ handler.setFormatter(Formatter('[%(asctime)s] :: %(levelname)s :: MODULE %(modul
 app.logger.addHandler(handler)
 
 # ==============================#
-# Configureation files
+# Configuration files
 # ==============================#
-config = ConfigParser.ConfigParser()
+try:
+    config = ConfigParser.ConfigParser()
+except:
+    # import configparser
+    config = configparser.ConfigParser()
 config.read('server.conf')
 
 ##############################
