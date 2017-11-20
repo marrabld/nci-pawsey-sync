@@ -2,10 +2,14 @@
 
 from flask_script import Manager, prompt_bool
 
+from requests import get  # to make GET request
 import logging
 import pip
+import os
+import shutil
 from app import db
 from app import app
+from app import config
 
 from models import transfer
 import datetime
@@ -19,7 +23,6 @@ manager = Manager(app)
 def init_db():
     """
     Initialize the database.
-    :return:
     """
     app.logger.info('Initialising the application database')
     db.create_all()
@@ -30,7 +33,6 @@ def init_db():
 def load_test_data():
     """
     Populate the database with dummy data so we can test the application
-    :return:
     """
     if prompt_bool("Are you sure you want to continue, proceeding will drop all previous data"):
         app.logger.warning('Dropping table before generating dummy data')
@@ -62,7 +64,6 @@ def load_test_data():
 def drop_db():
     """
     Drop the database.
-    :return:
     """
     if prompt_bool("Are you sure you want to lose all your data"):
         app.logger.warning('Dropping the database, all data will be lost')
@@ -71,19 +72,37 @@ def drop_db():
     else:
         app.logger.info('Skipping')
 
+@manager.command
+def update_pshell():
+    """
+    Download the latest version of pshell used to transfer to Pawsey
+    """
+    pshell_url = 'https://bitbucket.org/datapawsey/mfclient/downloads/pshell'
+
+    with open('./api/pawsey/pshell', "wb") as f:
+        # get request
+        response = get(pshell_url)
+        # write to file
+        f.write(response.content)
 
 @manager.command
 def update_auscop():
     """
     update the auscop api script from bitbucket
-    :return:
     """
     url = "https://bitbucket.org/chchrsc/auscophub"
     cmd = "hg+" + url
-    print(cmd)
+    app.logger.debug('Updating saraclient from {}'.format(cmd))
 
     pip.main(['install', cmd])
 
+
+@manager.command
+def clear_cache():
+    """
+    Delete the directory where the files are cached.
+    """
+    shutil.rmtree(config.get('DEV', 'cache'), ignore_errors=True)
 
 if __name__ == "__main__":
     manager.run()

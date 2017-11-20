@@ -8,6 +8,7 @@ import shutil
 import os
 from app import app
 
+
 def download_and_cache_images(remote_file_list):
     """
     Download from the NCI all the images in the list.  Cache them locally for push to Pawsey
@@ -54,11 +55,11 @@ def download_and_cache_images(remote_file_list):
             # write to file
             f.write(response.content)
 
-        # This is the Python 3 way.   TODO fix me for Python 2
+            # This is the Python 3 way.   TODO fix me for Python 2
 
-        # Download the file from `url` and save it locally under `file_name`:
-        # with urllib.request.urlopen(url) as response, open(file_name, 'wb') as out_file:
-        #   shutil.copyfileobj(response, out_file)
+            # Download the file from `url` and save it locally under `file_name`:
+            # with urllib.request.urlopen(url) as response, open(file_name, 'wb') as out_file:
+            #   shutil.copyfileobj(response, out_file)
 
 
 def get_last_sync(successful=True):
@@ -89,7 +90,7 @@ def get_last_sync(successful=True):
     return result
 
 
-def sync_nci_to_pawsey(sentinel=2):
+def sync_nci_to_pawsey(sentinel=2, last_published_list=None):
     """
     Grab a list of files since our last successful sync and push them to Pawsey
 
@@ -97,11 +98,16 @@ def sync_nci_to_pawsey(sentinel=2):
     :return:
     """
 
+    date = datetime.datetime.now()
+
     last_sync = get_last_sync()
 
     from api.nci.get_results_from_sara import get_published_after
 
-    last_published = get_published_after(sentinel_number=sentinel, published_date=last_sync.split(' ')[0])
+    if last_published_list is None:
+        last_published_list = get_published_after(sentinel_number=sentinel, published_date=last_sync.split(' ')[0])
+
+    download_and_cache_images(last_published_list)
 
     # ==============================#
     # now push to pawsey
@@ -129,7 +135,7 @@ def sync_nci_to_pawsey(sentinel=2):
     last_sync = datetime.datetime.strptime(last_sync, '%Y-%m-%d %H:%M:%S')
     # last_sync = datetime.datetime()
 
-    date = datetime.datetime.now()
+
     if pawsey_success:
         s = transfer.Schedule(date_time=date,
                               pi=pi,
