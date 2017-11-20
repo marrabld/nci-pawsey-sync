@@ -20,13 +20,13 @@ class TestSchedular(unittest.TestCase):
             'http://copernicus.nci.org.au/data/Sentinel-1/C-SAR/SLC/2017/2017-10/15N115E-10N120E/S1A_IW_SLC__1SDV_20171008T215507_20171008T215534_018727_01F993_8525.png',
             'http://copernicus.nci.org.au/data/Sentinel-3/SLSTR/SL_2_WST___/2017/2017-11/2017-11-15/S3A_SL_2_WST____20171115T044905_20171115T045205_20171115T063536_0180_024_261_4499_MAR_O_NR_002.png']
 
-    @unittest.skip('skip this test')
+    #@unittest.skip('Skip this test')
     def test_download_and_cache_images(self):
         app.logger.debug('Unittest :: download_and_cache_images for files :: {}'.format(self.remote_file_list))
         download_and_cache_images(self.remote_file_list)
 
 
-
+    @unittest.skip('Skip this test')
     def test_sync_nci_to_pawsey(self):
         """
 
@@ -36,3 +36,10 @@ class TestSchedular(unittest.TestCase):
         sync_nci_to_pawsey(last_published_list=self.remote_file_list)
 
 
+
+    def test_push_cache_to_pawsey(self):
+        """
+
+        :return:
+        """
+        push_cache_to_pawsey(dry_run=False)

@@ -8,6 +8,8 @@ import shutil
 import os
 from app import app
 
+ENV = config.get('GLOB', 'environment')
+
 
 def download_and_cache_images(remote_file_list):
     """
@@ -60,6 +62,63 @@ def download_and_cache_images(remote_file_list):
             # Download the file from `url` and save it locally under `file_name`:
             # with urllib.request.urlopen(url) as response, open(file_name, 'wb') as out_file:
             #   shutil.copyfileobj(response, out_file)
+
+
+def push_cache_to_pawsey(dry_run=False):
+    """
+    
+    :return: 
+    """
+
+    cmds = []
+    transfer_success = False
+
+    # ------------------------------#
+    # 1. change the remote folder
+    # 2. change the local folder
+    # 3. push
+    # 4. publish
+    # ------------------------------#
+
+    # cache = config.get('DEV', 'cache')
+
+    cmds.append('python ./api/pawsey/pshell \"cd ' + config.get(ENV, 'pawsey_root') + \
+                ' && lcd ' + config.get(ENV, 'cache') + \
+                ' && put Sentinel-1 \"')
+    cmds.append('python ./api/pawsey/pshell \"cd ' + config.get(ENV, 'pawsey_root') + \
+                ' && lcd ' + config.get(ENV, 'cache') + \
+                ' && put Sentinel-2 \"')
+    cmds.append('python ./api/pawsey/pshell \"cd ' + config.get(ENV, 'pawsey_root') + \
+                ' && lcd ' + config.get(ENV, 'cache') + \
+                ' && put Sentinel-3 \"')
+
+    pi = config.get(ENV, 'principle_investigator')
+
+    if dry_run:
+        print(cmds)
+    else:
+        for cmd in cmds:
+            try:
+                msg = os.system(cmd)
+                app.logger.info(msg)
+                transfer_success = True
+            except Exception as e:
+                transfer_success = False
+                app.logger.error('Failed to run {}'.format(cmd))
+                app.logger.error(e)
+
+        sync_time = get_last_sync()
+        if len(sync_time) >= 20:
+            sync_time = sync_time[:19]
+            sync_time = datetime.datetime.strptime(sync_time, '%Y-%m-%d %H:%M:%S')
+
+        s = transfer.Schedule(date_time=datetime.datetime.now(),
+                              pi=pi,
+                              last_published_date=sync_time,  # TODO, needs to by our time - a day or something
+                              transfer_success=transfer_success)
+        db.session.add(s)
+        db.session.commit()
+        app.logger.info("Sync Done")
 
 
 def get_last_sync(successful=True):
@@ -121,7 +180,7 @@ def sync_nci_to_pawsey(sentinel=2, last_published_list=None):
 
     pawsey_success = True
 
-    pi = config.get('DEV', 'principle_investigator')
+    pi = config.get(ENV, 'principle_investigator')
 
     # ------------------------------#
     # we need to trim the data
