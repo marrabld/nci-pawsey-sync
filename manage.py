@@ -41,7 +41,7 @@ def load_test_data():
 
         app.logger.info("Populating database with dummy data")
         for i_iter in range(0, 8):
-            date = datetime.datetime(year=2017, month=11, day=i_iter+1, hour=9, minute=30, second=0, tzinfo=None)
+            date = datetime.datetime(year=2017, month=11, day=i_iter + 1, hour=9, minute=30, second=0, tzinfo=None)
             _id = i_iter
             pi = 'Dan Marrable <d.marrable@curtin.edu.au>'
             last_published_date = datetime.datetime.now()
@@ -72,6 +72,7 @@ def drop_db():
     else:
         app.logger.info('Skipping')
 
+
 @manager.command
 def update_pshell():
     """
@@ -84,6 +85,7 @@ def update_pshell():
         response = get(pshell_url)
         # write to file
         f.write(response.content)
+
 
 @manager.command
 def update_auscop():
@@ -103,6 +105,7 @@ def clear_cache():
     Delete the directory where the files are cached.
     """
     shutil.rmtree(config.get('DEV', 'cache'), ignore_errors=True)
+
 
 if __name__ == "__main__":
     manager.run()
