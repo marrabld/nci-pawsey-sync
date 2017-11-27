@@ -4,7 +4,7 @@ from app import db, app
 from models import transfer
 
 from forms import auth_form
-from flask_login import login_user, login_required, logout_user, LoginManager
+from flask_login import login_user, login_required, logout_user, LoginManager, current_user
 
 # ==============================#
 # Make sure we are logged in before hitting the endpoints
@@ -49,13 +49,18 @@ def login():
             if user:
                 if user.password == form.password.data:
                     login_user(user)
-                    return "User logged in"
+                    return redirect(url_for('hello_world'))
                 else:
                     return "Wrong password"
             else:
-                return "user doesn't exist"
+                return "User doesn't exist"
     else:
-        return "form not validated"
+        return redirect(url_for('hello_world'))
+
+
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    return redirect('/login')
 
 
 @login_manager.user_loader
@@ -67,14 +72,13 @@ def load_user(email):
 @login_required
 def logout():
     logout_user()
-    return "Logged out"
+    return redirect(url_for('hello_world'))
 
 
 @app.route('/')
-@login_required
 def hello_world():
     app.logger.debug('Rendering home page')
-    return render_template('index.html')
+    return render_template('index.html', current_user=current_user)
 
 
 @app.route('/sentinel/<sentinel_num>/table/get_published_after/<date>')
