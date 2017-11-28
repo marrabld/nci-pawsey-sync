@@ -45,6 +45,7 @@ else:
 # ==============================#
 # Set up the data base for recording when we copy and write to the database.
 # ==============================#
-if DEBUG:
-    app.config['SQLALCHEMY_DATABASE_URI'] = config.get(environment, 'database_url')  # !!! Change me on Production
+
+app.config['SQLALCHEMY_DATABASE_URI'] = config.get(environment, 'database_url')  # !!! Change me on Production
+
 db = SQLAlchemy(app)
