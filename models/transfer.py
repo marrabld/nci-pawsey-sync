@@ -15,6 +15,9 @@ class Schedule(db.Model):
 
 
 class User(db.Model):
+    """
+    Users for authentication
+    """
     email = db.Column(db.String(80), primary_key=True, unique=True)
     password = db.Column(db.String(80))
 
