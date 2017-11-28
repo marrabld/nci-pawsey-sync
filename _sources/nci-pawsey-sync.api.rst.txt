@@ -1,0 +1,19 @@
+nci\-pawsey\-sync\.api package
+==============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    api.db
+    api.nci
+    api.pawsey
+
+Module contents
+---------------
+
+.. automodule:: api
+    :members:
+    :undoc-members:
+    :show-inheritance:

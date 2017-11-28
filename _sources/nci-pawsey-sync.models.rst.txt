@@ -1,0 +1,22 @@
+nci\-pawsey\-sync\.models package
+=================================
+
+Submodules
+----------
+
+nci\-pawsey\-sync\.models\.transfer module
+------------------------------------------
+
+.. automodule:: models.transfer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: models
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,22 @@
+nci\-pawsey\-sync\.api\.nci package
+===================================
+
+Submodules
+----------
+
+nci\-pawsey\-sync\.api\.nci\.get\_results\_from\_sara module
+------------------------------------------------------------
+
+.. automodule:: api.nci.get_results_from_sara
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: api.nci
+    :members:
+    :undoc-members:
+    :show-inheritance:

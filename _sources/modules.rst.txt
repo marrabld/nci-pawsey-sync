@@ -1,0 +1,7 @@
+nci-pawsey-sync
+===============
+
+.. toctree::
+   :maxdepth: 4
+
+   nci-pawsey-sync

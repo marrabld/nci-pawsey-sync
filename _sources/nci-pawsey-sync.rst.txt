@@ -1,0 +1,75 @@
+nci\-pawsey\-sync package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    nci-pawsey-sync.api
+    nci-pawsey-sync.forms
+    nci-pawsey-sync.logs
+    nci-pawsey-sync.models
+    nci-pawsey-sync.static
+    nci-pawsey-sync.templates
+    nci-pawsey-sync.tests
+
+Submodules
+----------
+
+nci\-pawsey\-sync\.admin module
+-------------------------------
+
+.. automodule:: admin
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+nci\-pawsey\-sync\.app module
+-----------------------------
+
+.. automodule:: app
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+nci\-pawsey\-sync\.auth module
+------------------------------
+
+.. automodule:: auth
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+nci\-pawsey\-sync\.main module
+------------------------------
+
+.. automodule:: main
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+nci\-pawsey\-sync\.manage module
+--------------------------------
+
+.. automodule:: manage
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+nci\-pawsey\-sync\.views module
+-------------------------------
+
+.. automodule:: views
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: nci-pawsey-sync
+    :members:
+    :undoc-members:
+    :show-inheritance:

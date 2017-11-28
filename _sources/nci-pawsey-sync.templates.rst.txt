@@ -1,0 +1,17 @@
+nci\-pawsey\-sync\.templates package
+====================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    templates.js
+
+Module contents
+---------------
+
+.. automodule:: templates
+    :members:
+    :undoc-members:
+    :show-inheritance:
