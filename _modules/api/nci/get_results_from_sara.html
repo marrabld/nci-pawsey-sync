@@ -161,16 +161,21 @@
            <div itemprop="articleBody">
             
   <h1>Source code for api.nci.get_results_from_sara</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">auscophub</span> <span class="k">import</span> <span class="n">saraclient</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module is a convenience wrappwer around the auscophub saraclient python module</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">auscophub</span> <span class="k">import</span> <span class="n">saraclient</span>
 
 
 <div class="viewcode-block" id="get_by_date"><a class="viewcode-back" href="../../../nci-pawsey-sync.api.nci.html#api.nci.get_results_from_sara.get_by_date">[docs]</a><span class="k">def</span> <span class="nf">get_by_date</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">completion_date</span><span class="p">,</span> <span class="n">sentinel_number</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retreive a list of satellite metadata files that were collected between two dates.  Retuns json array</span>
 
-<span class="sd">    :param start_date:</span>
-<span class="sd">    :param completion_date:</span>
+<span class="sd">    :param start_date: The start date the files were collected from the sensor</span>
+<span class="sd">    :param completion_date: The end date the files were collected from the sensor</span>
 <span class="sd">    :param sentinel_number:</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :return: .JSON array containing all the metadata</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url_opener</span> <span class="o">=</span> <span class="n">saraclient</span><span class="o">.</span><span class="n">makeUrlOpener</span><span class="p">()</span>
     <span class="n">sentinel</span> <span class="o">=</span> <span class="n">sentinel_number</span>
@@ -182,10 +187,13 @@
 
 <div class="viewcode-block" id="get_published_after"><a class="viewcode-back" href="../../../nci-pawsey-sync.api.nci.html#api.nci.get_results_from_sara.get_published_after">[docs]</a><span class="k">def</span> <span class="nf">get_published_after</span><span class="p">(</span><span class="n">sentinel_number</span><span class="p">,</span> <span class="n">published_date</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieve a list of satellite metadata files that were published after a particular date.</span>
 
-<span class="sd">    :param sentinel_number:</span>
-<span class="sd">    :param published_date:</span>
-<span class="sd">    :return:</span>
+<span class="sd">    The published date is the date that it was made public at the NCI.  Not the date it was collected</span>
+
+<span class="sd">    :param sentinel_number: The major sentinel number.  i.e. 2  not 2a</span>
+<span class="sd">    :param published_date: The date the files were published at the NCI</span>
+<span class="sd">    :return: .JSON array containing all the metadata</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url_opener</span> <span class="o">=</span> <span class="n">saraclient</span><span class="o">.</span><span class="n">makeUrlOpener</span><span class="p">()</span>
     <span class="n">sentinel</span> <span class="o">=</span> <span class="n">sentinel_number</span>
@@ -197,10 +205,11 @@
 
 <div class="viewcode-block" id="get_nci_url_published_after"><a class="viewcode-back" href="../../../nci-pawsey-sync.api.nci.html#api.nci.get_results_from_sara.get_nci_url_published_after">[docs]</a><span class="k">def</span> <span class="nf">get_nci_url_published_after</span><span class="p">(</span><span class="n">sentinel_number</span><span class="p">,</span> <span class="n">published_date</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieve a list of downloadable URLs within the WA-SA region</span>
 
-<span class="sd">    :param published_date:</span>
-<span class="sd">    :param sentinel_number:</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :param sentinel_number: The major sentinel number.  i.e. 2  not 2a</span>
+<span class="sd">    :param published_date: The date the files were published at the NCI</span>
+<span class="sd">    :return: list of URLs</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">url_opener</span> <span class="o">=</span> <span class="n">saraclient</span><span class="o">.</span><span class="n">makeUrlOpener</span><span class="p">()</span>
