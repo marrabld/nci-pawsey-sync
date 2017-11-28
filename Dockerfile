@@ -4,6 +4,7 @@ RUN apt-get -y update
 RUN apt-get -y install python-pip python-dev build-essential
 COPY . /app
 WORKDIR /app
+EXPOSE 5000
 RUN pip install -r requirements.txt
 ENTRYPOINT ["python"]
 CMD ["main.py"]
