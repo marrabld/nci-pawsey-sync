@@ -34,7 +34,10 @@ except:
     config = configparser.ConfigParser()
 config.read('server.conf')
 
-if config.get('GLOB', 'environment') == 'DEV':
+environment = config.get('GLOB', 'environment')
+app.logger.info('Running in {} mode'.format(environment))
+
+if environment == 'DEV':
     DEBUG = True
 else:
     DEBUG = False
@@ -43,5 +46,5 @@ else:
 # Set up the data base for recording when we copy and write to the database.
 # ==============================#
 if DEBUG:
-    app.config['SQLALCHEMY_DATABASE_URI'] = config.get('DEV', 'database_url')  # !!! Change me on Production
+    app.config['SQLALCHEMY_DATABASE_URI'] = config.get(environment, 'database_url')  # !!! Change me on Production
 db = SQLAlchemy(app)
