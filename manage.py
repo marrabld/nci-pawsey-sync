@@ -1,18 +1,18 @@
 #!/usr/bin/python
 
-from flask_script import Manager, prompt_bool
-
-from requests import get  # to make GET request
+import datetime
 import logging
-import pip
 import os
+import pip
 import shutil
-from app import db
+
+from flask_script import Manager, prompt_bool
+from requests import get  # to make GET request
+
 from app import app
 from app import config
-
+from app import db
 from models import transfer
-import datetime
 
 app.logger.setLevel(logging.DEBUG)
 
@@ -105,6 +105,21 @@ def clear_cache():
     Delete the directory where the files are cached.
     """
     shutil.rmtree(config.get('DEV', 'cache'), ignore_errors=True)
+
+
+@manager.command
+def run_tests():
+    """
+    Run the unit tests with nose
+    """
+
+    os.system('nose2')
+    # import nose2
+    # import sys
+    # sys.path.append(os.path.realpath('./tests'))
+    # nose2.main()
+    # #nose2.main(module=tests)
+    # #nose2.run(module='./tests', defaultTest='./tests')
 
 
 if __name__ == "__main__":

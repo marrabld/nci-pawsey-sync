@@ -19,6 +19,10 @@ https://bitbucket.org/chchrsc/auscophub/downloads/
 
 ## Install 
 
+`docker-compose build`
+
+## Run 
+
 `docker-compose up`
 
 ## manage.py 
@@ -32,8 +36,10 @@ python manage.py
     update_pshell       Download the latest version of pshell used to transfer    
                         to Pawsey    
     update_auscop       update the auscop api script from bitbucket    
-    clear_cache         Delete the directory where the files are cached.    
+    clear_cache         Delete the directory where the files are cached.
+    run_tests           Run the unit tests with nose    
     shell               Runs a Python shell inside Flask application context.    
-    runserver           Runs the Flask development server i.e. app.run()    ```
+    runserver           Runs the Flask development server i.e. app.run()    
+```
     
     

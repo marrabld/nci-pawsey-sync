@@ -1,7 +1,6 @@
 import sys
 import os
 import unittest
-from app import app
 
 sys.path.append(os.path.realpath('.'))
 from api.db.scheduler import *  # download_and_cache_images
@@ -34,7 +33,6 @@ class TestSchedular(unittest.TestCase):
         """
         app.logger.debug('Unittest :: test_sync_nci_to_pawsey :: {}'.format(self.remote_file_list))
         sync_nci_to_pawsey(last_published_list=self.remote_file_list)
-
 
 
     def test_push_cache_to_pawsey(self):
