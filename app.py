@@ -11,8 +11,6 @@ try:
 except:
     import configparser
 
-DEBUG = True
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SRSS4Life'
 
@@ -35,6 +33,11 @@ except:
     # import configparser
     config = configparser.ConfigParser()
 config.read('server.conf')
+
+if config.get('GLOB', 'environment') == 'DEV':
+    DEBUG = True
+else:
+    DEBUG = False
 
 # ==============================#
 # Set up the data base for recording when we copy and write to the database.
