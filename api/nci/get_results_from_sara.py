@@ -1,13 +1,18 @@
+"""
+This module is a convenience wrappwer around the auscophub saraclient python module
+"""
+
 from auscophub import saraclient
 
 
 def get_by_date(start_date, completion_date, sentinel_number):
     """
+    Retreive a list of satellite metadata files that were collected between two dates.  Retuns json array
 
-    :param start_date:
-    :param completion_date:
+    :param start_date: The start date the files were collected from the sensor
+    :param completion_date: The end date the files were collected from the sensor
     :param sentinel_number:
-    :return:
+    :return: .JSON array containing all the metadata
     """
     url_opener = saraclient.makeUrlOpener()
     sentinel = sentinel_number
@@ -19,10 +24,13 @@ def get_by_date(start_date, completion_date, sentinel_number):
 
 def get_published_after(sentinel_number, published_date):
     """
+    Retrieve a list of satellite metadata files that were published after a particular date.
 
-    :param sentinel_number:
-    :param published_date:
-    :return:
+    The published date is the date that it was made public at the NCI.  Not the date it was collected
+
+    :param sentinel_number: The major sentinel number.  i.e. 2  not 2a
+    :param published_date: The date the files were published at the NCI
+    :return: .JSON array containing all the metadata
     """
     url_opener = saraclient.makeUrlOpener()
     sentinel = sentinel_number
@@ -34,10 +42,11 @@ def get_published_after(sentinel_number, published_date):
 
 def get_nci_url_published_after(sentinel_number, published_date):
     """
+    Retrieve a list of downloadable URLs within the WA-SA region
 
-    :param published_date:
-    :param sentinel_number:
-    :return:
+    :param sentinel_number: The major sentinel number.  i.e. 2  not 2a
+    :param published_date: The date the files were published at the NCI
+    :return: list of URLs
     """
     url_list = []
     url_opener = saraclient.makeUrlOpener()

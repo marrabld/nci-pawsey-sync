@@ -5,6 +5,9 @@ import logging
 import os
 import pip
 import shutil
+import schedule
+import api.db.scheduler
+import time
 
 from flask_script import Manager, prompt_bool
 from requests import get  # to make GET request
@@ -120,6 +123,17 @@ def run_tests():
     # nose2.main()
     # #nose2.main(module=tests)
     # #nose2.run(module='./tests', defaultTest='./tests')
+
+
+@manager.command
+def start_scheduler():
+    """
+    Set the scheduler to run regularly.  defaults to  every 3 hours.
+    """
+    api.db.scheduler.set_schedule()
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 
 if __name__ == "__main__":

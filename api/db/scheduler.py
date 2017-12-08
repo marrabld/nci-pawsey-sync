@@ -6,6 +6,7 @@ from app import config
 import requests
 import shutil
 import os
+import schedule
 from app import app
 
 ENV = config.get('GLOB', 'environment')
@@ -28,7 +29,6 @@ def download_and_cache_images(remote_file_list):
         # We want to preserve the folder structure.
         # We can build it from the URL itself.
         # ------------------------------#
-
 
         # figure out our directory structure
         sub_url = url.split('data')[1]
@@ -66,6 +66,9 @@ def download_and_cache_images(remote_file_list):
 
 def push_cache_to_pawsey(dry_run=False):
     """
+    Push the current cache directory to Pawsey preserving the directory structure.
+
+    If dry_run is True, it doesn't copy the data, it just prints the commands
     
     :return: 
     """
@@ -194,7 +197,6 @@ def sync_nci_to_pawsey(sentinel=2, last_published_list=None):
     last_sync = datetime.datetime.strptime(last_sync, '%Y-%m-%d %H:%M:%S')
     # last_sync = datetime.datetime()
 
-
     if pawsey_success:
         s = transfer.Schedule(date_time=date,
                               pi=pi,
@@ -205,3 +207,21 @@ def sync_nci_to_pawsey(sentinel=2, last_published_list=None):
     db.session.commit()
 
     return True
+
+
+def set_schedule():
+    """
+    Set the number of hours to run repeat the synchronisation
+
+    :param delta_time: How often to run the sync service in hours
+    :return:
+    """
+
+    print('setting schedule')
+    delta_time = config.get(ENV, 'schedule_time')
+    print(delta_time)
+    app.logger.info('Running pawsey sync every {} hours '.format(delta_time))
+
+    print(type(delta_time))
+
+    schedule.every(float(delta_time)).hours.do(sync_nci_to_pawsey, 2)
